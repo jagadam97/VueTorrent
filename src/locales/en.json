@@ -511,11 +511,11 @@
         "activeFilter": "{n} filters active",
         "category": "Category Filter",
         "disabled": "(Disabled)",
-        "state":{
+        "state": {
           "title": "Torrent State Filter",
-          "active": "Active",
-          "error": "Error",
-          "offline": "Offline"
+          "active": "Active ({count})",
+          "error": "Error ({count})",
+          "offline": "Offline  ({count})"
         },
         "tag": "Tag Filter",
         "tracker": "Tracker Filter",
