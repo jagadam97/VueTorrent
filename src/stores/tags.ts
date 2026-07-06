@@ -7,7 +7,11 @@ import qbit from '@/services/qbit'
 
 export const useTagStore = defineStore('tags', () => {
   const _tags = shallowRef<Set<string>>(new Set())
-  const tags = useSorted(() => Array.from(_tags.value.values()), comparators.text.asc)
+  const tags = useSorted(() => {
+    const tagSet = new Set(_tags.value)
+    torrents.value.forEach(torrent => torrent.tags.forEach(tag => tagSet.add(tag)))
+    return Array.from(tagSet)
+  }, comparators.text.asc)
 
   const { torrents } = storeToRefs(useTorrentStore())
 

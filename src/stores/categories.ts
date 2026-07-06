@@ -10,7 +10,21 @@ export const useCategoryStore = defineStore('categories', () => {
   /** Key: Category name */
   const _categoryMap = shallowRef<Map<string, Category>>(new Map())
   const categories = useSorted(
-    () => Array.from(_categoryMap.value.values()),
+    () => {
+      const categoryMap = new Map(_categoryMap.value)
+      torrents.value.forEach(torrent => {
+        const categoryName = torrent.category
+        if (categoryName && !categoryMap.has(categoryName)) {
+          categoryMap.set(categoryName, {
+            name: categoryName,
+            savePath: '',
+            downloadPathEnabled: false,
+            downloadPath: '',
+          })
+        }
+      })
+      return Array.from(categoryMap.values())
+    },
     (a, b) => comparators.text.asc(a.name, b.name)
   )
 
